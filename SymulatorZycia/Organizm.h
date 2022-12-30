@@ -17,10 +17,11 @@ public:
 
 	Organizm(Swiat* swiat);
 
-
 	virtual void akcja() = 0;
 	virtual void kolizja() = 0;
 	virtual char rysowanie() = 0;
+
+	void ustawXY(int x, int y);
 
 	virtual ~Organizm() {}
 };
