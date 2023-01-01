@@ -21,6 +21,11 @@ public:
 	virtual void kolizja() = 0;
 	virtual char rysowanie() = 0;
 
+	int getX();
+	int getY();
+	int getInicjatywa();
+	int getWiek();
+
 	void ustawXY(int x, int y);
 
 	virtual ~Organizm() {}

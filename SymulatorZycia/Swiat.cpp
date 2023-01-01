@@ -48,15 +48,25 @@ Swiat::Swiat() : liczbaOrganizmow{ 0 } {
 	}
 }
 
-void Swiat::wykonajTure() {
+void Swiat::sortOrganizmow() {
+	std::sort(kolejnosc.begin(), kolejnosc.end(), [](Organizm* organizm1, Organizm* organizm2) {
+		if (organizm1->getInicjatywa() == organizm2->getInicjatywa())
+			return organizm1->getWiek() > organizm2->getWiek();
+		else
+			return organizm1->getInicjatywa() > organizm2->getInicjatywa();
+		});
+}
 
+void Swiat::wykonajTure() {
+	sortOrganizmow();
+	for (Organizm* organizm : kolejnosc)
+		ruchOrganizmu(organizm);
 }
 
 void Swiat::rysujSwiat() {
 	std::cout << "\n===============================================================\n    ";
 
-	for (int j = 0; j < N; j++)
-	{
+	for (int j = 0; j < N; j++)	{
 		if (j < 10)
 			std::cout << j << "  ";
 		else
@@ -65,10 +75,8 @@ void Swiat::rysujSwiat() {
 
 	std::cout << "\n";
 
-	for (int j = 0; j < N; j++)
-	{
-		for (int i = 0; i < N; i++)
-		{
+	for (int j = 0; j < N; j++)	{
+		for (int i = 0; i < N; i++)	{
 			if (i == 0 && j < 10)
 				std::cout << j << "   ";
 			if (i == 0 && j > 9)
@@ -96,10 +104,58 @@ void Swiat::dodajOrganizmNaMape(Organizm* organizm) {
 	mapa[randomX][randomY] = organizm;
 	liczbaOrganizmow++;
 	organizm->ustawXY(randomX, randomY);
+	kolejnosc.push_back(organizm);
 }
 
 void Swiat::ruchOrganizmu(Organizm* organizm) {
-	
+	int x = organizm->getX();
+	int y = organizm->getY();
+
+	do {
+		x = organizm->getX();
+		y = organizm->getY();
+
+		switch (rand() % 8) {
+		case 0:
+			x--;
+			y--;
+			break;
+		case 1:
+			y--;
+			break;
+		case 2:
+			x++;
+			y--;
+			break;
+		case 3:
+			x++;
+			break;
+		case 4:
+			x++;
+			y++;
+			break;
+		case 5:
+			y++;
+			break;
+		case 6:
+			x--;
+			y++;
+			break;
+		case 7:
+			x--;
+			break;
+		} 
+	} while (x == -1 || y == -1 || x == 20 || y == 20);
+
+	if (czyZajeteMiejsce(x, y)) {
+		organizm->kolizja();
+		std::cout << "Napierdalamy sie\n";
+	}				
+	else {
+		mapa[organizm->getX()][organizm->getY()] = nullptr;
+		organizm->ustawXY(x, y);
+		mapa[organizm->getX()][organizm->getY()] = organizm;
+	}
 }
 
 bool Swiat::czyZajeteMiejsce(int x, int y) {

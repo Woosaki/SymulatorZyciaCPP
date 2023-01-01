@@ -22,6 +22,7 @@ int main() {
 
     while (std::cin >> znak) {
         system("CLS");
+        swiat->wykonajTure();
         swiat->rysujSwiat();
     }
 

@@ -1,6 +1,8 @@
 #pragma once
 #include "Organizm.h"
 #include <vector>
+#include <algorithm>
+#include <iostream>
 
 const int N = 20;
 
@@ -9,7 +11,7 @@ class Organizm;
 class Swiat
 {
 	Organizm* mapa[N][N];
-	std::vector <Organizm*> organizmy;
+	std::vector <Organizm*> kolejnosc;
 	int liczbaOrganizmow;
 public:
 	Swiat();
@@ -20,5 +22,6 @@ public:
 	bool czyZajeteMiejsce(int x, int y);
 	int iloscOrganizmow();
 	void ruchOrganizmu(Organizm* organizm);
+	void sortOrganizmow();
 };
 
