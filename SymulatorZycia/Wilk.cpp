@@ -5,17 +5,10 @@ Wilk::Wilk(Swiat* swiat) : Zwierze(swiat) {
 	inicjatywa = 5;
 }
 
-void Wilk::akcja() {
-
-
-}
-
-void Wilk::kolizja() {
-
-
-}
-
-
 char Wilk::rysowanie() {
 	return 'W';
+}
+
+std::string Wilk::nazwa() {
+	return "WILK";
 }

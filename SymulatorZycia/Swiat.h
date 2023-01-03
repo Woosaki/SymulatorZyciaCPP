@@ -8,8 +8,7 @@ const int N = 20;
 
 class Organizm;
 
-class Swiat
-{
+class Swiat {
 	Organizm* mapa[N][N];
 	std::vector <Organizm*> kolejnosc;
 	int liczbaOrganizmow;
@@ -19,9 +18,13 @@ public:
 	void rysujSwiat();
 
 	void dodajOrganizmNaMape(Organizm* organizm);
+	void dodajOrganizmNaMape(Organizm*, int x, int y);
 	bool czyZajeteMiejsce(int x, int y);
+	Organizm* organizmNaPolu(int x, int y);
 	int iloscOrganizmow();
-	void ruchOrganizmu(Organizm* organizm);
+	void przesunOrganizm(Organizm* organizm, int x, int y);
 	void sortOrganizmow();
+	void usunOrganizm(Organizm* organizm);
+
 };
 

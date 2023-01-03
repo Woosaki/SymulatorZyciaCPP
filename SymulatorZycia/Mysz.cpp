@@ -5,18 +5,16 @@ Mysz::Mysz(Swiat* swiat) : Zwierze(swiat) {
 	inicjatywa = 6;
 }
 
-void Mysz::akcja() {
+void Mysz::kolizja(Organizm* organizm) {
 
-
+	Zwierze::kolizja(organizm);
 }
-
-void Mysz::kolizja() {
-
-
-}
-
 
 char Mysz::rysowanie() {
 	return 'M';
+}
+
+std::string Mysz::nazwa() {
+	return "MYSZ";
 }
 

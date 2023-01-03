@@ -4,8 +4,7 @@
 
 class Swiat;
 
-class Organizm
-{
+class Organizm {
 protected:
 	int sila;
 	int inicjatywa;
@@ -18,15 +17,19 @@ public:
 	Organizm(Swiat* swiat);
 
 	virtual void akcja() = 0;
-	virtual void kolizja() = 0;
+	virtual void kolizja(Organizm* organizm) = 0;
 	virtual char rysowanie() = 0;
+	virtual std::string nazwa() = 0;
 
 	int getX();
 	int getY();
 	int getInicjatywa();
+	int getSila();
 	int getWiek();
 
 	void ustawXY(int x, int y);
+	void ustawSila(int sila);
+	void zwiekszWiek();
 
 	virtual ~Organizm() {}
 };

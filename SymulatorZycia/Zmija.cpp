@@ -5,17 +5,15 @@ Zmija::Zmija(Swiat* swiat) : Zwierze(swiat) {
 	inicjatywa = 3;
 }
 
-void Zmija::akcja() {
-
-
-}
-
-void Zmija::kolizja() {
-
+void Zmija::kolizja(Organizm* organizm) {
+	Zwierze::kolizja(organizm);
 
 }
-
 
 char Zmija::rysowanie() {
 	return 'Z';
+}
+
+std::string Zmija::nazwa() {
+	return "ZMIJA";
 }

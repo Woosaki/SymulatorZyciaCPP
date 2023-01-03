@@ -1,16 +1,9 @@
 #include "Trawa.h"
 
-void Trawa::akcja() {
-
-
-}
-
-void Trawa::kolizja() {
-
-
-}
-
-
 char Trawa::rysowanie() {
 	return 'T';
+}
+
+std::string Trawa::nazwa() {
+	return "TRAWA";
 }

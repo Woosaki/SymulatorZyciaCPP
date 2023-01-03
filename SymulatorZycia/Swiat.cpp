@@ -59,37 +59,39 @@ void Swiat::sortOrganizmow() {
 
 void Swiat::wykonajTure() {
 	sortOrganizmow();
-	for (Organizm* organizm : kolejnosc)
-		ruchOrganizmu(organizm);
+	for (int i = 0; i < kolejnosc.size(); i++) {
+		kolejnosc[i]->akcja();
+		kolejnosc[i]->zwiekszWiek();
+	}
+	/*for (Organizm* organizm : kolejnosc) {
+		organizm->akcja();
+		organizm->zwiekszWiek();
+	}*/
 }
 
 void Swiat::rysujSwiat() {
 	std::cout << "\n===============================================================\n    ";
-
-	for (int j = 0; j < N; j++)	{
-		if (j < 10)
-			std::cout << j << "  ";
+	for (int i = 0; i < N; i++)	{
+		if (i < 10)
+			std::cout << i << "  ";
 		else
-			std::cout << j << " ";
+			std::cout << i << " ";
 	}
-
 	std::cout << "\n";
+	for (int i = 0; i < N; i++)	{
+		for (int j = 0; j < N; j++)	{
+			if (j == 0 && i < 10)
+				std::cout << i << "   ";
+			if (j == 0 && i > 9)
+				std::cout << i << "  ";
 
-	for (int j = 0; j < N; j++)	{
-		for (int i = 0; i < N; i++)	{
-			if (i == 0 && j < 10)
-				std::cout << j << "   ";
-			if (i == 0 && j > 9)
-				std::cout << j << "  ";
-
-			if (mapa[i][j] != nullptr)
-				std::cout << mapa[i][j]->rysowanie() << "  ";
+			if (mapa[j][i] != nullptr)
+				std::cout << mapa[j][i]->rysowanie() << "  ";
 			else
 				std::cout << ".  ";
 		}
 		std::cout << "\n";
 	}
-
 	std::cout << "===============================================================\n";
 }
 
@@ -107,61 +109,30 @@ void Swiat::dodajOrganizmNaMape(Organizm* organizm) {
 	kolejnosc.push_back(organizm);
 }
 
-void Swiat::ruchOrganizmu(Organizm* organizm) {
-	int x = organizm->getX();
-	int y = organizm->getY();
 
-	do {
-		x = organizm->getX();
-		y = organizm->getY();
 
-		switch (rand() % 8) {
-		case 0:
-			x--;
-			y--;
-			break;
-		case 1:
-			y--;
-			break;
-		case 2:
-			x++;
-			y--;
-			break;
-		case 3:
-			x++;
-			break;
-		case 4:
-			x++;
-			y++;
-			break;
-		case 5:
-			y++;
-			break;
-		case 6:
-			x--;
-			y++;
-			break;
-		case 7:
-			x--;
-			break;
-		} 
-	} while (x == -1 || y == -1 || x == 20 || y == 20);
-
-	if (czyZajeteMiejsce(x, y)) {
-		organizm->kolizja();
-		std::cout << "Napierdalamy sie\n";
-	}				
-	else {
-		mapa[organizm->getX()][organizm->getY()] = nullptr;
-		organizm->ustawXY(x, y);
-		mapa[organizm->getX()][organizm->getY()] = organizm;
-	}
+void Swiat::przesunOrganizm(Organizm* organizm, int x, int y) {
+	mapa[organizm->getX()][organizm->getY()] = nullptr;
+	organizm->ustawXY(x, y);
+	mapa[x][y] = organizm;
 }
 
 bool Swiat::czyZajeteMiejsce(int x, int y) {
 	return mapa[x][y] != nullptr;
 }
 
+Organizm* Swiat::organizmNaPolu(int x, int y) {
+	return mapa[x][y];
+}
+
 int Swiat::iloscOrganizmow() {
 	return liczbaOrganizmow;
+}
+
+void Swiat::usunOrganizm(Organizm* organizm) {
+	auto itr = std::find(kolejnosc.begin(), kolejnosc.end(), organizm);
+	kolejnosc.erase(itr);
+	mapa[organizm->getX()][organizm->getY()] = nullptr;
+	delete organizm;
+	liczbaOrganizmow--;
 }

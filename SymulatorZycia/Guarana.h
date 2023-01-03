@@ -2,14 +2,13 @@
 #include <iostream>
 #include "Roslina.h"
 
-class Guarana : public Roslina
-{
+class Guarana : public Roslina {
 public:
 	Guarana(Swiat* swiat) : Roslina(swiat) {}
 
-	virtual void akcja();
-	virtual void kolizja();
+	virtual void kolizja(Organizm* organizm);
 	virtual char rysowanie();
+	virtual std::string nazwa();
 
 	virtual ~Guarana() {}
 };

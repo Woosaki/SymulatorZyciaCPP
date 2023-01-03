@@ -5,17 +5,10 @@ Owca::Owca(Swiat* swiat) : Zwierze(swiat) {
 	inicjatywa = 4;
 }
 
-void Owca::akcja() {
-
-
-}
-
-void Owca::kolizja() {
-
-
-}
-
-
 char Owca::rysowanie() {
 	return 'O';
+}
+
+std::string Owca::nazwa() {
+	return "OWCA";
 }

@@ -6,12 +6,12 @@ Leniwiec::Leniwiec(Swiat* swiat) : Zwierze(swiat) {
 }
 
 void Leniwiec::akcja() {
-
-
+	if (wiek % 2 == 0)
+		Zwierze::akcja();
 }
 
-void Leniwiec::kolizja() {
-
+void Leniwiec::kolizja(Organizm* organizm) {
+	Zwierze::kolizja(organizm);
 
 }
 
@@ -20,3 +20,6 @@ char Leniwiec::rysowanie() {
 	return 'L';
 }
 
+std::string Leniwiec::nazwa() {
+	return "LENIWIEC";
+}

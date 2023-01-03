@@ -2,14 +2,13 @@
 #include <iostream>
 #include "Zwierze.h"
 
-class Zmija : public Zwierze
-{
+class Zmija : public Zwierze {
 public:
 	Zmija(Swiat* swiat);
 
-	virtual void akcja();
-	virtual void kolizja();
+	virtual void kolizja(Organizm* organizm);
 	virtual char rysowanie();
+	virtual std::string nazwa();
 
 	virtual ~Zmija() {}
 };
