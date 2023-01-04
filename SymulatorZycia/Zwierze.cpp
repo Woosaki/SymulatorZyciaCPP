@@ -60,26 +60,40 @@ void Zwierze::kolizja(Organizm* organizm) {
 		if (rysowanie() == organizm->rysowanie()) {
 			std::cout << nazwa() << " ma sie rozmnozyc na polu (" << x << "," << y << ")\n";
 		}
+		//zmija jest atakowana przez silniejszy organizm
+		else if (organizm->rysowanie() == 'Z' && sila >= organizm->getSila()) {
+			std::cout << "Atakujacy " << nazwa() << " pokonuje " << organizm->nazwa() << ", lecz ta go zatruwa "
+				<< "i oba organizmy gina polu (" << organizmX << ", " << organizmY << ")\n\n";
+			swiat->usunOrganizm(organizm);
+			swiat->usunOrganizm(this);		
+		}
+		//zmija atakuje silniejszy organizm
+		else if (rysowanie() == 'Z' && sila <= organizm->getSila()) {
+			std::cout << nazwa() << " zatruwa " << organizm->nazwa() << " i oba organizmy gina na polu ("
+				<< organizmX << ", " << organizmY << ")\n\n";
+			swiat->usunOrganizm(organizm);
+			swiat->usunOrganizm(this);	
+		}
 		//jesli kolizja z mysza organizmu nie bedacym zmija z pustym polem obok
 		else if (rysowanie() != 'Z' && organizm->rysowanie() == 'M' && swiat->czyWolnePoleObok(organizm)) {
 			std::cout << organizm->nazwa() << " uciekla na sasiednie pole przed " << nazwa()
-				<< " na polu (" << organizm->getX() << ", " << organizm->getY() << ")\n\n";
+				<< " na polu (" << organizmX << ", " << organizmY << ")\n\n";
 			swiat->przesunOrganizmLosowo(organizm);
 			swiat->przesunOrganizm(this, organizmX, organizmY);
-		}
+		}	
 		//zwykla walka organizmow
 		else {
 			std::cout << "Doszlo do walki pomiedzy " << nazwa() << " a " << organizm->nazwa() 
-				<< " na polu (" << organizm->getX() << ", " << organizm->getY() << ")\n";
+				<< " na polu (" << organizmX << ", " << organizmY << ")\n";
 			if (sila >= organizm->getSila()) {
 				
 				swiat->usunOrganizm(organizm);
 				swiat->przesunOrganizm(this, organizmX, organizmY);
-				std::cout << "Atakujacy (" << nazwa() << ") okazal sie silniejszy\n\n";
+				std::cout << "Atakujacy " << nazwa() << " okazal sie silniejszy\n\n";
 			}
 			else {
 				swiat->usunOrganizm(this);
-				std::cout << "Broniacy (" << organizm->nazwa() << ") okazal sie silniejszy\n\n";
+				std::cout << "Broniacy " << organizm->nazwa() << " okazal sie silniejszy\n\n";
 			}
 		}
 	}
