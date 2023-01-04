@@ -23,7 +23,7 @@ int main() {
 
      while (std::cin >> znak) {
         system("CLS");
-        std::cout << "\n\t\t\t" << "Tura: " << tura<<"\n\n";
+        std::cout << "\n\t\t\t" << "Tura: " << tura <<"\n\n";
         swiat->wykonajTure();
         swiat->rysujSwiat();
         tura++;

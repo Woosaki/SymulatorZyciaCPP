@@ -5,11 +5,6 @@ Mysz::Mysz(Swiat* swiat) : Zwierze(swiat) {
 	inicjatywa = 6;
 }
 
-void Mysz::kolizja(Organizm* organizm) {
-
-	Zwierze::kolizja(organizm);
-}
-
 char Mysz::rysowanie() {
 	return 'M';
 }

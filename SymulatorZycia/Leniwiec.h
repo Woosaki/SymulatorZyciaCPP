@@ -7,7 +7,6 @@ public:
 	Leniwiec(Swiat* swiat);
 
 	virtual void akcja();
-	virtual void kolizja(Organizm* organizm);
 	virtual char rysowanie();
 	virtual std::string nazwa();
 

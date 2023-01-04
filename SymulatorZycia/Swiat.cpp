@@ -8,7 +8,7 @@
 #include "Guarana.h"
 #include "Ciern.h"
 
-Swiat::Swiat() : liczbaOrganizmow{ 0 } {
+Swiat::Swiat() {
 
 	for (int i = 0; i < N; i++)
 		for (int j = 0; j < N; j++)
@@ -49,7 +49,7 @@ Swiat::Swiat() : liczbaOrganizmow{ 0 } {
 }
 
 void Swiat::sortOrganizmow() {
-	std::sort(kolejnosc.begin(), kolejnosc.end(), [](Organizm* organizm1, Organizm* organizm2) {
+	std::sort(kolejnosc.begin(), kolejnosc.end(), [] (Organizm* organizm1, Organizm* organizm2) {
 		if (organizm1->getInicjatywa() == organizm2->getInicjatywa())
 			return organizm1->getWiek() > organizm2->getWiek();
 		else
@@ -63,10 +63,6 @@ void Swiat::wykonajTure() {
 		kolejnosc[i]->akcja();
 		kolejnosc[i]->zwiekszWiek();
 	}
-	/*for (Organizm* organizm : kolejnosc) {
-		organizm->akcja();
-		organizm->zwiekszWiek();
-	}*/
 }
 
 void Swiat::rysujSwiat() {
@@ -102,19 +98,56 @@ void Swiat::dodajOrganizmNaMape(Organizm* organizm) {
 		randomX = rand() % 20;
 		randomY = rand() % 20;
 	}
-
 	mapa[randomX][randomY] = organizm;
-	liczbaOrganizmow++;
 	organizm->ustawXY(randomX, randomY);
 	kolejnosc.push_back(organizm);
 }
-
-
 
 void Swiat::przesunOrganizm(Organizm* organizm, int x, int y) {
 	mapa[organizm->getX()][organizm->getY()] = nullptr;
 	organizm->ustawXY(x, y);
 	mapa[x][y] = organizm;
+}
+
+void Swiat::przesunOrganizmLosowo(Organizm* organizm) {
+	int x = organizm->getX();
+	int y = organizm->getY();
+	do {
+		x = organizm->getX();
+		y = organizm->getY();
+
+		switch (rand() % 8) {
+		case 0:
+			x--;
+			y--;
+			break;
+		case 1:
+			y--;
+			break;
+		case 2:
+			x++;
+			y--;
+			break;
+		case 3:
+			x++;
+			break;
+		case 4:
+			x++;
+			y++;
+			break;
+		case 5:
+			y++;
+			break;
+		case 6:
+			x--;
+			y++;
+			break;
+		case 7:
+			x--;
+			break;
+		}
+	} while (x == -1 || y == -1 || x == 20 || y == 20 && !czyZajeteMiejsce(x, y));
+	przesunOrganizm(organizm, x, y);
 }
 
 bool Swiat::czyZajeteMiejsce(int x, int y) {
@@ -125,14 +158,49 @@ Organizm* Swiat::organizmNaPolu(int x, int y) {
 	return mapa[x][y];
 }
 
-int Swiat::iloscOrganizmow() {
-	return liczbaOrganizmow;
-}
-
 void Swiat::usunOrganizm(Organizm* organizm) {
 	auto itr = std::find(kolejnosc.begin(), kolejnosc.end(), organizm);
 	kolejnosc.erase(itr);
 	mapa[organizm->getX()][organizm->getY()] = nullptr;
 	delete organizm;
-	liczbaOrganizmow--;
+}
+
+bool Swiat::czyWolnePoleObok(Organizm* organizm) {
+	for (int i = 0; i < 8; i++) {
+		int x = organizm->getX();
+		int y = organizm->getY();
+		switch (i) {
+		case 0:
+			x--;
+			y--;
+			break;
+		case 1:
+			y--;
+			break;
+		case 2:
+			x++;
+			y--;
+			break;
+		case 3:
+			x++;
+			break;
+		case 4:
+			x++;
+			y++;
+			break;
+		case 5:
+			y++;
+			break;
+		case 6:
+			x--;
+			y++;
+			break;
+		case 7:
+			x--;
+			break;
+		}
+		if (!czyZajeteMiejsce(x, y))
+			return true;
+	}
+	return false;
 }

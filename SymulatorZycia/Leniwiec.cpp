@@ -10,12 +10,6 @@ void Leniwiec::akcja() {
 		Zwierze::akcja();
 }
 
-void Leniwiec::kolizja(Organizm* organizm) {
-	Zwierze::kolizja(organizm);
-
-}
-
-
 char Leniwiec::rysowanie() {
 	return 'L';
 }
