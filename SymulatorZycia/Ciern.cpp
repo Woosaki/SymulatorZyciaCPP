@@ -18,6 +18,10 @@ void Ciern::kolizja(Organizm* organizm) {
 		Roslina::kolizja(organizm);
 }
 
+void Ciern::rozmnazanie(Swiat* swiat, int x, int y) {
+	
+}
+
 char Ciern::rysowanie() {
 	return 'C';
 }

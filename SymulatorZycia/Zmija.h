@@ -6,9 +6,9 @@ class Zmija : public Zwierze {
 public:
 	Zmija(Swiat* swiat);
 
-	virtual void kolizja(Organizm* organizm);
 	virtual char rysowanie();
 	virtual std::string nazwa();
+	virtual void rozmnazanie(Swiat* swiat, int x, int y);
 
 	virtual ~Zmija() {}
 };

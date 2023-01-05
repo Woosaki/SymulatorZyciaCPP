@@ -8,7 +8,7 @@
 #include "Guarana.h"
 #include "Ciern.h"
 
-Swiat::Swiat() {
+Swiat::Swiat() : tura(0), iloscNowychOrganizmow(0){
 
 	for (int i = 0; i < N; i++)
 		for (int j = 0; j < N; j++)
@@ -16,36 +16,42 @@ Swiat::Swiat() {
 
 	for (int i = 0; i < 5; i++) {
 		Organizm* organizm = new Wilk(this);
-		dodajOrganizmNaMape(organizm);
+		dodajLosowoOrganizmNaMape(organizm);
 	}
 	for (int i = 0; i < 5; i++) {
 		Organizm* organizm = new Owca(this);
-		dodajOrganizmNaMape(organizm);
+		dodajLosowoOrganizmNaMape(organizm);
 	}
 	for (int i = 0; i < 3; i++) {
 		Organizm* organizm = new Leniwiec(this);
-		dodajOrganizmNaMape(organizm);
+		dodajLosowoOrganizmNaMape(organizm);
 	}
 	for (int i = 0; i < 3; i++) {
 		Organizm* organizm = new Zmija(this);
-		dodajOrganizmNaMape(organizm);
+		dodajLosowoOrganizmNaMape(organizm);
 	}
 	for (int i = 0; i < 2; i++) {
 		Organizm* organizm = new Mysz(this);
-		dodajOrganizmNaMape(organizm);
+		dodajLosowoOrganizmNaMape(organizm);
 	}
 	for (int i = 0; i < 4; i++) {
 		Organizm* organizm = new Trawa(this);
-		dodajOrganizmNaMape(organizm);
+		dodajLosowoOrganizmNaMape(organizm);
 	}
 	for (int i = 0; i < 2; i++) {
 		Organizm* organizm = new Guarana(this);
-		dodajOrganizmNaMape(organizm);
+		dodajLosowoOrganizmNaMape(organizm);
 	}
 	for (int i = 0; i < 2; i++) {
 		Organizm* organizm = new Ciern(this);
-		dodajOrganizmNaMape(organizm);
+		dodajLosowoOrganizmNaMape(organizm);
 	}
+}
+
+int Swiat::getTura() { return tura; }
+
+void Swiat::zwiekszIloscNowychOrganizmow() {
+	iloscNowychOrganizmow++;
 }
 
 void Swiat::sortOrganizmow() {
@@ -54,15 +60,17 @@ void Swiat::sortOrganizmow() {
 			return organizm1->getWiek() > organizm2->getWiek();
 		else
 			return organizm1->getInicjatywa() > organizm2->getInicjatywa();
-		});
+	});
 }
 
 void Swiat::wykonajTure() {
 	sortOrganizmow();
-	for (int i = 0; i < kolejnosc.size(); i++) {
+	for (int i = 0; i < kolejnosc.size() - iloscNowychOrganizmow; i++) {
 		kolejnosc[i]->akcja();
 		kolejnosc[i]->zwiekszWiek();
 	}
+	iloscNowychOrganizmow = 0;
+	tura++;
 }
 
 void Swiat::rysujSwiat() {
@@ -91,7 +99,7 @@ void Swiat::rysujSwiat() {
 	std::cout << "===============================================================\n";
 }
 
-void Swiat::dodajOrganizmNaMape(Organizm* organizm) {
+void Swiat::dodajLosowoOrganizmNaMape(Organizm* organizm) {
 	int randomX = rand() % 20;
 	int randomY = rand() % 20;
 	while (czyZajeteMiejsce(randomX, randomY)) {
@@ -100,6 +108,12 @@ void Swiat::dodajOrganizmNaMape(Organizm* organizm) {
 	}
 	mapa[randomX][randomY] = organizm;
 	organizm->ustawXY(randomX, randomY);
+	kolejnosc.push_back(organizm);
+}
+
+void Swiat::dodajOrganizmNaMape(Organizm* organizm, int x, int y) {
+	mapa[x][y] = organizm;
+	organizm->ustawXY(x, y);
 	kolejnosc.push_back(organizm);
 }
 
@@ -146,7 +160,7 @@ void Swiat::przesunOrganizmLosowo(Organizm* organizm) {
 			x--;
 			break;
 		}
-	} while (x == -1 || y == -1 || x == 20 || y == 20 && !czyZajeteMiejsce(x, y));
+	} while (czyZajeteMiejsce(x, y) || wspolrzednePozaMapa(x, y));
 	przesunOrganizm(organizm, x, y);
 }
 
@@ -163,6 +177,10 @@ void Swiat::usunOrganizm(Organizm* organizm) {
 	kolejnosc.erase(itr);
 	mapa[organizm->getX()][organizm->getY()] = nullptr;
 	delete organizm;
+}
+
+bool Swiat::wspolrzednePozaMapa(int x, int y) {
+	return (x < 0 || y < 0 || x > 19 || y > 19);
 }
 
 bool Swiat::czyWolnePoleObok(Organizm* organizm) {

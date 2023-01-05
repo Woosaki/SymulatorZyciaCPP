@@ -5,9 +5,11 @@ Zmija::Zmija(Swiat* swiat) : Zwierze(swiat) {
 	inicjatywa = 3;
 }
 
-void Zmija::kolizja(Organizm* organizm) {
-	Zwierze::kolizja(organizm);
-
+void Zmija::rozmnazanie(Swiat* swiat, int x, int y) {
+	Organizm* organizm = new Zmija(swiat);
+	swiat->dodajOrganizmNaMape(organizm, x, y);
+	swiat->przesunOrganizmLosowo(organizm);
+	swiat->zwiekszIloscNowychOrganizmow();
 }
 
 char Zmija::rysowanie() {

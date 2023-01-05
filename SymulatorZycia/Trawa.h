@@ -8,6 +8,7 @@ public:
 
 	virtual char rysowanie();
 	virtual std::string nazwa();
+	virtual void rozmnazanie(Swiat* swiat, int x, int y);
 
 	virtual ~Trawa() {}
 };

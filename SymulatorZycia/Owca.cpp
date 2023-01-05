@@ -5,6 +5,13 @@ Owca::Owca(Swiat* swiat) : Zwierze(swiat) {
 	inicjatywa = 4;
 }
 
+void Owca::rozmnazanie(Swiat* swiat, int x, int y) {
+	Organizm* organizm = new Owca(swiat);
+	swiat->dodajOrganizmNaMape(organizm, x, y);
+	swiat->przesunOrganizmLosowo(organizm);
+	swiat->zwiekszIloscNowychOrganizmow();
+}
+
 char Owca::rysowanie() {
 	return 'O';
 }

@@ -3,7 +3,6 @@
 void Zwierze::akcja() {
 	int x = getX();
 	int y = getY();
-
 	do {
 		x = getX();
 		y = getY();
@@ -38,32 +37,34 @@ void Zwierze::akcja() {
 			x--;
 			break;
 		}
-	} while (x == -1 || y == -1 || x == 20 || y == 20);
-
-	if (swiat->czyZajeteMiejsce(x, y)) {
+	} while (swiat->wspolrzednePozaMapa(x, y));
+	if (swiat->czyZajeteMiejsce(x, y))
 		kolizja(swiat->organizmNaPolu(x, y));
-	}
-	else {
+	else
 		swiat->przesunOrganizm(this, x, y);
-	}
 }
 
 void Zwierze::kolizja(Organizm* organizm) {
 	//jesli kolizja z roslina
-	if (organizm->rysowanie() == 'T' || organizm->rysowanie() == 'C' || organizm->rysowanie() == 'G') {
+	if (organizm->czyRoslina())
 		organizm->kolizja(this);
-	}
 	else {
 		int organizmX = organizm->getX();
 		int organizmY = organizm->getY();
 		//jesli kolizja z tym samym gatunkiem
 		if (rysowanie() == organizm->rysowanie()) {
-			std::cout << nazwa() << " ma sie rozmnozyc na polu (" << x << "," << y << ")\n";
+			if (!swiat->czyWolnePoleObok(organizm))
+				std::cout << nazwa() << " nie moze sie rozmnozyc na polu (" << x << "," << y << "), gdyz nie ma miejsca obok!\n\n";
+			else {
+				std::cout << nazwa() << " sie rozmnaza na polu (" << x << "," << y << ")\n\n";
+				organizm->rozmnazanie(swiat, organizmX, organizmY);
+				swiat->przesunOrganizm(organizm, organizmX, organizmY);
+			}	
 		}
 		//zmija jest atakowana przez silniejszy organizm
 		else if (organizm->rysowanie() == 'Z' && sila >= organizm->getSila()) {
 			std::cout << "Atakujacy " << nazwa() << " pokonuje " << organizm->nazwa() << ", lecz ta go zatruwa "
-				<< "i oba organizmy gina polu (" << organizmX << ", " << organizmY << ")\n\n";
+				<< "i oba organizmy gina na polu (" << organizmX << ", " << organizmY << ")\n\n";
 			swiat->usunOrganizm(organizm);
 			swiat->usunOrganizm(this);		
 		}

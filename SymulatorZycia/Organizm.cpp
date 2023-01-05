@@ -21,3 +21,7 @@ void Organizm::ustawSila(int sila) {
 void Organizm::zwiekszWiek() {
 	this->wiek++;
 }
+
+bool Organizm::czyRoslina() {
+	return rysowanie() == 'T' || rysowanie() == 'C' || rysowanie() == 'G';
+}

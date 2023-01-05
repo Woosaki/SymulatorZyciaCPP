@@ -7,6 +7,10 @@ void Guarana::kolizja(Organizm* organizm) {
 	organizm->ustawSila(organizm->getSila() + 3);	
 }
 
+void Guarana::rozmnazanie(Swiat* swiat, int x, int y) {
+
+}
+
 char Guarana::rysowanie() {
 	return 'G';
 }
