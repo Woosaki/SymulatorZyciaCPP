@@ -73,21 +73,75 @@ void Swiat::wykonajTure() {
 		kolejnosc[i]->akcja();
 		kolejnosc[i]->zwiekszWiek();
 	}
-	if (kolejnosc.size() >= N * N)
-		koniecGry();
-	else {
-		iloscNowychOrganizmow = 0;
-		tura++;
-	}	
+	iloscNowychOrganizmow = 0;
+	tura++;	
 }
 
-//Organizm* Swiat::ktoWygral() {
-//	int najwiecejPowtorzen{ 0 };
-//	return najwiecejPowtorzen;
-//}
+void Swiat::zapiszSwiat() {
+	std::fstream plik;
+	plik.open("zapisSwiata.txt", std::ios::out);
+	plik << tura << "\n";
 
-void Swiat::koniecGry() {
-	std::cout << "Nie ma juz miejsca na mapie!\n\n";
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < N; j++)
+			if (mapa[i][j] != nullptr)
+				plik << mapa[i][j]->rysowanie() << " " << i << " " << j << " " 
+					<< mapa[i][j]->getSila() << " " << mapa[i][j]->getInicjatywa() << " " << mapa[i][j]->getWiek();
+}
+
+void Swiat::wczytajSwiat() {
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < N; j++)
+			mapa[i][j] = nullptr;
+	kolejnosc.clear();
+	std::fstream plik;
+	plik.open("zapisSwiata.txt", std::ios::in);
+	char znak;
+	int x, y, sila, inicjatywa, wiek, tura;
+	plik >> tura;
+	this->tura = tura;
+	while (!plik.eof())	{
+		plik >> znak;
+		plik >> x;
+		plik >> y;
+		plik >> sila;
+		plik >> inicjatywa;
+		plik >> wiek;
+
+		Organizm* organizm = nullptr;
+
+		switch (znak)
+		{
+		case 'W':
+			organizm = new Wilk(this);
+			break;
+		case 'O':
+			organizm = new Owca(this);
+			break;
+		case 'Z':
+			organizm = new Zmija(this);
+			break;
+		case 'M':
+			organizm = new Mysz(this);
+			break;
+		case 'L':
+			organizm = new Leniwiec(this);
+			break;
+		case 'T':
+			organizm = new Trawa(this);
+			break;
+		case 'G':
+			organizm = new Guarana(this);
+			break;
+		case 'C':
+			organizm = new Ciern(this);
+			break;
+		}
+		organizm->ustawSila(sila);
+		organizm->ustawInicjatywa(inicjatywa);
+		organizm->ustawWiek(wiek);
+		dodajOrganizmNaMape(organizm, x, y);
+	}
 }
 
 void Swiat::rysujSwiat() {
@@ -115,6 +169,8 @@ void Swiat::rysujSwiat() {
 		std::cout << "\n";
 	}
 	std::cout << "===============================================================\n";
+	std::cout << "WYKONAJ TURE: '1' \nZAPISZ DO PLIKU: '2' \nWCZYTAJ Z PLIKU: '3' \n";
+	std::cout << "===============================================================\n\n";
 }
 
 void Swiat::dodajLosowoOrganizmNaMape(Organizm* organizm) {

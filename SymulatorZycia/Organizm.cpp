@@ -18,6 +18,14 @@ void Organizm::ustawSila(int sila) {
 	this->sila = sila;
 }
 
+void Organizm::ustawInicjatywa(int inicjatywa) {
+	this->inicjatywa = inicjatywa;
+}
+
+void Organizm::ustawWiek(int wiek) {
+	this->wiek = wiek;
+}
+
 void Organizm::zwiekszWiek() {
 	this->wiek++;
 }

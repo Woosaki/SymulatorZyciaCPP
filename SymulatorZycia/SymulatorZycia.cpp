@@ -19,9 +19,24 @@ int main() {
     swiat->rysujSwiat();
 
      while (std::cin >> znak) {
-        system("CLS");
-        swiat->wykonajTure();
-        swiat->rysujSwiat();
+		 system("CLS");
+		 switch (znak) {
+		 case '1':
+			 swiat->wykonajTure();
+			 swiat->rysujSwiat();
+			 break;
+		 case '2':
+			 swiat->zapiszSwiat();
+			 swiat->rysujSwiat();
+			 break;
+		 case '3':
+			 swiat->wczytajSwiat();
+			 swiat->rysujSwiat();
+			 break;
+		 default:
+			 std::cout << "Nie ma takiej opcji w menu\n";
+			 swiat->rysujSwiat();
+		 }
     }
 
     return 0;

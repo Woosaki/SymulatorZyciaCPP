@@ -30,6 +30,9 @@ public:
 
 	void ustawXY(int x, int y);
 	void ustawSila(int sila);
+	void ustawInicjatywa(int inicjatywa);
+	void ustawWiek(int wiek);
+
 	void zwiekszWiek();
 	bool czyRoslina();
 	void rozmnoz(Organizm* organizm);

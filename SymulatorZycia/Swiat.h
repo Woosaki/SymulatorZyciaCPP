@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <fstream>
 
 const int N = 20;
 
@@ -32,7 +33,7 @@ public:
 	void usunOrganizm(Organizm* organizm);
 	bool wspolrzednePozaMapa(int x, int y);
 	bool czyWolnePoleObok(Organizm* organizm);
-	void koniecGry();
-	Organizm* ktoWygral();
+	void zapiszSwiat();
+	void wczytajSwiat();
 };
 
