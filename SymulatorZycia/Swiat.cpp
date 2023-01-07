@@ -14,7 +14,7 @@ Swiat::Swiat() : tura(0), iloscNowychOrganizmow(0){
 		for (int j = 0; j < N; j++)
 			mapa[i][j] = nullptr;
 
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 8; i++) {
 		Organizm* organizm = new Wilk(this);
 		dodajLosowoOrganizmNaMape(organizm);
 	}
@@ -22,23 +22,23 @@ Swiat::Swiat() : tura(0), iloscNowychOrganizmow(0){
 		Organizm* organizm = new Owca(this);
 		dodajLosowoOrganizmNaMape(organizm);
 	}
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 5; i++) {
 		Organizm* organizm = new Leniwiec(this);
 		dodajLosowoOrganizmNaMape(organizm);
 	}
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 5; i++) {
 		Organizm* organizm = new Zmija(this);
 		dodajLosowoOrganizmNaMape(organizm);
 	}
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 4; i++) {
 		Organizm* organizm = new Mysz(this);
 		dodajLosowoOrganizmNaMape(organizm);
 	}
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 3; i++) {
 		Organizm* organizm = new Trawa(this);
 		dodajLosowoOrganizmNaMape(organizm);
 	}
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 2; i++) {
 		Organizm* organizm = new Guarana(this);
 		dodajLosowoOrganizmNaMape(organizm);
 	}
@@ -110,8 +110,7 @@ void Swiat::wczytajSwiat() {
 
 		Organizm* organizm = nullptr;
 
-		switch (znak)
-		{
+		switch (znak) {
 		case 'W':
 			organizm = new Wilk(this);
 			break;
@@ -145,7 +144,7 @@ void Swiat::wczytajSwiat() {
 }
 
 void Swiat::rysujSwiat() {
-	std::cout << "\n\t\t\t" << "Tura: " << tura << "\n\n";
+	std::cout << "\n\t\t\t" << "TURA: " << tura << "\n\n";
 	std::cout << "\n===============================================================\n    ";
 	for (int i = 0; i < N; i++)	{
 		if (i < 10)
@@ -169,11 +168,14 @@ void Swiat::rysujSwiat() {
 		std::cout << "\n";
 	}
 	std::cout << "===============================================================\n";
-	std::cout << "WYKONAJ TURE: '1' \nZAPISZ DO PLIKU: '2' \nWCZYTAJ Z PLIKU: '3' \n";
+	std::cout << "\t\t   WYKONAJ TURE :    1";
+	std::cout << "\n\t\t   ZAPISZ DO PLIKU : 2 ";
+	std::cout << "\n\t\t   WCZYTAJ Z PLIKU : 3 \n";
 	std::cout << "===============================================================\n\n";
 }
 
 void Swiat::dodajLosowoOrganizmNaMape(Organizm* organizm) {
+	srand(time(NULL));
 	int randomX = rand() % N;
 	int randomY = rand() % N;
 	while (czyZajeteMiejsce(randomX, randomY)) {

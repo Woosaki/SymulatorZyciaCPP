@@ -18,7 +18,7 @@ int main() {
     Swiat* swiat = new Swiat();
     swiat->rysujSwiat();
 
-     while (std::cin >> znak) {
+    while (std::cin >> znak) {
 		 system("CLS");
 		 switch (znak) {
 		 case '1':
@@ -27,10 +27,12 @@ int main() {
 			 break;
 		 case '2':
 			 swiat->zapiszSwiat();
+			 std::cout << "Zapisano obecny stan gry!\n";
 			 swiat->rysujSwiat();
 			 break;
 		 case '3':
 			 swiat->wczytajSwiat();
+			 std::cout << "Wczytano poprzedni stan gry!\n";
 			 swiat->rysujSwiat();
 			 break;
 		 default:

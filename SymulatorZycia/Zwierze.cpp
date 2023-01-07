@@ -47,11 +47,13 @@ void Zwierze::akcja() {
 void Zwierze::kolizja(Organizm* organizm) {
 	int organizmX = organizm->getX();
 	int organizmY = organizm->getY();
-	//jesli kolizja z roslina
-	if (organizm->czyRoslina()) {
+	//atakowanie ciernia przez slaby organizm
+	if(organizm->rysowanie() =='C' && sila < organizm->getSila())
 		organizm->kolizja(this);
-		if (this != nullptr)
-			swiat->przesunOrganizm(this, organizmX, organizmY);
+	//atakowanie zwyklej rosliny
+	else if (organizm->czyRoslina()) {
+		organizm->kolizja(this);
+		swiat->przesunOrganizm(this, organizmX, organizmY);
 	}	
 	else {	
 		//jesli kolizja z tym samym gatunkiem
@@ -92,16 +94,16 @@ void Zwierze::kolizja(Organizm* organizm) {
 }
 
 bool Zwierze::czyRozmnozyc(Organizm* organizm) {
-	if (this->getWiek() < 3 && organizm->getWiek() < 3) {
-		std::cout << "Nie mozna rozmnozyc " << nazwa() << " na polu (" << x << "," << y << "), gdyz ktorys organizm jest za mlody!\n\n";
+	if (getWiek() < 3 || organizm->getWiek() < 3) {
+		std::cout << "Nie mozna rozmnozyc " << nazwa() << " na polu (" << x << ", " << y << "), gdyz ktorys organizm jest za mlody!\n\n";
 		return false;
 	}
-	else if (!swiat->czyWolnePoleObok(organizm)) {
-		std::cout << nazwa() << " nie moze sie rozmnozyc na polu (" << x << "," << y << "), gdyz nie ma miejsca obok!\n\n";
+	else if (!swiat->czyWolnePoleObok(this)) {
+		std::cout << nazwa() << " nie moze sie rozmnozyc na polu (" << x << ", " << y << "), gdyz nie ma miejsca obok!\n\n";
 		return false;
 	}
 	else {
-		std::cout << nazwa() << " sie rozmnaza na polu (" << x << "," << y << ")\n\n";
+		std::cout << nazwa() << " sie rozmnaza na polu (" << x << ", " << y << ")\n\n";
 		return true;
 	}
 }

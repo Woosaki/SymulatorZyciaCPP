@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
+#include <time.h>
 
 const int N = 20;
 
@@ -14,6 +15,9 @@ class Swiat {
 	std::vector <Organizm*> kolejnosc;
 	int tura;
 	int iloscNowychOrganizmow;
+
+	void sortOrganizmow();
+	void dodajLosowoOrganizmNaMape(Organizm* organizm);
 public:
 	Swiat();
 	void wykonajTure();
@@ -22,14 +26,12 @@ public:
 	int getTura();
 
 	void zwiekszIloscNowychOrganizmow();
-	void dodajLosowoOrganizmNaMape(Organizm* organizm);
 	void dodajOrganizmNaMape(Organizm* organizm, int x, int y);
 	void dodajDoKolejki(Organizm* organizm);
 	bool czyZajeteMiejsce(int x, int y);
 	Organizm* organizmNaPolu(int x, int y);
 	void przesunOrganizm(Organizm* organizm, int x, int y);
 	void przesunOrganizmLosowo(Organizm* organizm);
-	void sortOrganizmow();
 	void usunOrganizm(Organizm* organizm);
 	bool wspolrzednePozaMapa(int x, int y);
 	bool czyWolnePoleObok(Organizm* organizm);
