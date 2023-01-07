@@ -10,11 +10,9 @@ void Leniwiec::akcja() {
 		Zwierze::akcja();
 }
 
-void Leniwiec::rozmnazanie(Swiat* swiat, int x, int y) {
+void Leniwiec::rozmnazanie() {
 	Organizm* organizm = new Leniwiec(swiat);
-	swiat->dodajOrganizmNaMape(organizm, x, y);
-	swiat->przesunOrganizmLosowo(organizm);
-	swiat->zwiekszIloscNowychOrganizmow();
+	rozmnoz(organizm);
 }
 
 char Leniwiec::rysowanie() {

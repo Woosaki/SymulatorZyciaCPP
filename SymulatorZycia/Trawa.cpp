@@ -1,7 +1,8 @@
 #include "Trawa.h"
 
-void Trawa::rozmnazanie(Swiat* swiat, int x, int y) {
-
+void Trawa::rozmnazanie() {
+	Organizm* organizm = new Trawa(swiat);
+	rozmnoz(organizm);
 }
 
 char Trawa::rysowanie() {

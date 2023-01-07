@@ -20,7 +20,7 @@ public:
 	virtual void kolizja(Organizm* organizm) = 0;
 	virtual char rysowanie() = 0;
 	virtual std::string nazwa() = 0;
-	virtual void rozmnazanie(Swiat* swiat, int x, int y) = 0;
+	virtual void rozmnazanie() = 0;
 
 	int getX();
 	int getY();
@@ -32,6 +32,7 @@ public:
 	void ustawSila(int sila);
 	void zwiekszWiek();
 	bool czyRoslina();
+	void rozmnoz(Organizm* organizm);
 
 	virtual ~Organizm() {}
 };

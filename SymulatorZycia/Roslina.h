@@ -10,7 +10,7 @@ public:
 	virtual void kolizja(Organizm* organizm);
 	virtual char rysowanie() = 0;
 	virtual std::string nazwa() = 0;
-	virtual void rozmnazanie(Swiat* swiat, int x, int y) = 0;
+	virtual void rozmnazanie() = 0;
 
 	virtual ~Roslina() {}
 };

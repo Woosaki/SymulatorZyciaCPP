@@ -5,11 +5,9 @@ Wilk::Wilk(Swiat* swiat) : Zwierze(swiat) {
 	inicjatywa = 5;
 }
 
-void Wilk::rozmnazanie(Swiat* swiat, int x, int y) {
+void Wilk::rozmnazanie() {
 	Organizm* organizm = new Wilk(swiat);
-	swiat->dodajOrganizmNaMape(organizm, x, y);
-	swiat->przesunOrganizmLosowo(organizm);
-	swiat->zwiekszIloscNowychOrganizmow();
+	rozmnoz(organizm);
 }
 
 char Wilk::rysowanie() {

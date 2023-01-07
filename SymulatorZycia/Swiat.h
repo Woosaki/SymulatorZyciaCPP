@@ -23,6 +23,7 @@ public:
 	void zwiekszIloscNowychOrganizmow();
 	void dodajLosowoOrganizmNaMape(Organizm* organizm);
 	void dodajOrganizmNaMape(Organizm* organizm, int x, int y);
+	void dodajDoKolejki(Organizm* organizm);
 	bool czyZajeteMiejsce(int x, int y);
 	Organizm* organizmNaPolu(int x, int y);
 	void przesunOrganizm(Organizm* organizm, int x, int y);
@@ -31,5 +32,7 @@ public:
 	void usunOrganizm(Organizm* organizm);
 	bool wspolrzednePozaMapa(int x, int y);
 	bool czyWolnePoleObok(Organizm* organizm);
+	void koniecGry();
+	Organizm* ktoWygral();
 };
 

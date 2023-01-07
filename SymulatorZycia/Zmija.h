@@ -7,8 +7,9 @@ public:
 	Zmija(Swiat* swiat);
 
 	virtual char rysowanie();
+	virtual void kolizja(Organizm* organizm);
 	virtual std::string nazwa();
-	virtual void rozmnazanie(Swiat* swiat, int x, int y);
+	virtual void rozmnazanie();
 
 	virtual ~Zmija() {}
 };

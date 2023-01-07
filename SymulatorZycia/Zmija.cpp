@@ -5,11 +5,25 @@ Zmija::Zmija(Swiat* swiat) : Zwierze(swiat) {
 	inicjatywa = 3;
 }
 
-void Zmija::rozmnazanie(Swiat* swiat, int x, int y) {
+void Zmija::kolizja(Organizm* organizm) {
+	if (organizm->czyRoslina())
+		Zwierze::kolizja(organizm);	
+	else if (organizm->rysowanie() == 'Z')
+		if(czyRozmnozyc(organizm))
+			rozmnazanie();
+	else if (sila <= organizm->getSila()) {
+		std::cout << nazwa() << " zatruwa " << organizm->nazwa() << " i oba organizmy gina na polu ("
+			<< organizm->getX() << ", " << organizm->getY() << ")\n\n";
+		swiat->usunOrganizm(organizm);
+		swiat->usunOrganizm(this);
+	}
+	else
+		Zwierze::kolizja(organizm);
+}
+
+void Zmija::rozmnazanie() {
 	Organizm* organizm = new Zmija(swiat);
-	swiat->dodajOrganizmNaMape(organizm, x, y);
-	swiat->przesunOrganizmLosowo(organizm);
-	swiat->zwiekszIloscNowychOrganizmow();
+	rozmnoz(organizm);
 }
 
 char Zmija::rysowanie() {

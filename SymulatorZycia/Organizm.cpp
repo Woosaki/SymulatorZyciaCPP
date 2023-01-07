@@ -25,3 +25,10 @@ void Organizm::zwiekszWiek() {
 bool Organizm::czyRoslina() {
 	return rysowanie() == 'T' || rysowanie() == 'C' || rysowanie() == 'G';
 }
+
+void Organizm::rozmnoz(Organizm* organizm) {
+	organizm->ustawXY(x, y);
+	swiat->przesunOrganizmLosowo(organizm);
+	swiat->dodajDoKolejki(organizm);
+	swiat->zwiekszIloscNowychOrganizmow();
+}

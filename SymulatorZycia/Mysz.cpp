@@ -5,11 +5,9 @@ Mysz::Mysz(Swiat* swiat) : Zwierze(swiat) {
 	inicjatywa = 6;
 }
 
-void Mysz::rozmnazanie(Swiat* swiat, int x, int y) {
+void Mysz::rozmnazanie() {
 	Organizm* organizm = new Mysz(swiat);
-	swiat->dodajOrganizmNaMape(organizm, x, y);
-	swiat->przesunOrganizmLosowo(organizm);
-	swiat->zwiekszIloscNowychOrganizmow();
+	rozmnoz(organizm);
 }
 
 char Mysz::rysowanie() {
